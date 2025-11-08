@@ -4,7 +4,7 @@ let btns=["yellow","red","purple","green"];
 
 let started=false;
 let level=0;
-let prev=localStorage.getItem("highScore") ? Number(localStorage.getItem("highScore")) : 0;
+let prev=localStorage.getItem("prev") ? Number(localStorage.getItem("prev")) : 0;
 let h2=document.querySelector("h2");
 document.addEventListener("keypress",function(){
     if(started==false){
@@ -55,9 +55,9 @@ function checkAns(idx){
      }
 
   } else{
-      if (level > highScore) {
-      highScore = level;
-      localStorage.setItem("highScore", highScore);
+      if (level > prev) {
+      prev = level;
+      localStorage.setItem("prev", prev);
     }
     h2.innerHTML=`Game Over! Your score was <b>${level}</b> <br>Highest score ${prev} Press any key to start.`;
     document.querySelector("body").style.backgroundColor="red";
@@ -90,4 +90,5 @@ function reset(){
    userSeq=[];
 
 }
+
 
