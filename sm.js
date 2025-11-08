@@ -3,7 +3,8 @@ let userSeq=[];
 let btns=["yellow","red","purple","green"];
 
 let started=false;
-let level=0,prev=0;
+let level=0;
+let prev=localStorage.getItem("highScore") ? Number(localStorage.getItem("highScore")) : 0;
 let h2=document.querySelector("h2");
 document.addEventListener("keypress",function(){
     if(started==false){
@@ -36,7 +37,7 @@ function levelUp(){
     level++;
    h2.innerText=`Level ${level}`;
 
-   let randIdx=Math.floor(Math.random()*3);
+   let randIdx=Math.floor(Math.random()*4);
    let randColor=btns[randIdx];
    let randbtn=document.querySelector(`.${randColor}`);
    gameSeq.push(randColor);
@@ -54,8 +55,10 @@ function checkAns(idx){
      }
 
   } else{
-    let max=Math.max(prev,level);
-    prev=max;
+      if (level > highScore) {
+      highScore = level;
+      localStorage.setItem("highScore", highScore);
+    }
     h2.innerHTML=`Game Over! Your score was <b>${level}</b> <br>Highest score ${prev} Press any key to start.`;
     document.querySelector("body").style.backgroundColor="red";
     setTimeout(function(){
@@ -85,4 +88,5 @@ function reset(){
    level=0;
    gameSeq=[];
    userSeq=[];
+
 }
